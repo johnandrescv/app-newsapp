@@ -4,6 +4,11 @@ import { StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import NewsNavigator from './navigation/NewsNavigator';
 import { AppLoading } from 'expo';
+import { Provider } from 'react-redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import newsReducer from './store/reducers/news';
+import ReduxThunk from 'redux-thunk';
+
 enableScreens();
 
 const fetchFonts = () => {
@@ -13,6 +18,12 @@ const fetchFonts = () => {
   });
 };
 
+const rootReducer = combineReducers({
+  news: newsReducer,
+});
+
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
 
@@ -21,7 +32,9 @@ export default function App() {
   }
 
   return (
-    <NewsNavigator />
+    <Provider store={store}>
+      <NewsNavigator />
+    </Provider>
   );
 }
 
