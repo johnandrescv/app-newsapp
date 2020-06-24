@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import NewsScreen from '../screens/NewsScreen';
 import CustomColors from '../constants/CustomColors';
 import ProfileScreen from '../screens/ProfileScreen';
+import ArticleDetailScreen from '../screens/ArticleDetailScreen';
 
 const headerOptions = {
     headerStyle: {
@@ -23,6 +24,7 @@ const headerOptions = {
 
 const NewsNavigator = createStackNavigator({
     News: NewsScreen,
+    Detail: ArticleDetailScreen
 }, {
     defaultNavigationOptions: headerOptions
 });

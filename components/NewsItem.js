@@ -5,7 +5,7 @@ import CustomColors from '../constants/CustomColors';
 
 const NewsItem = props => {
     return (<View style={styles.container}>
-        <TouchableOpacity onPress={props.onSelectMeal}>
+        <TouchableOpacity onPress={props.onArticleSelection}>
             <View>
                 <View style={{...styles.newsRow, ...styles.newsHeader}}>
                     <ImageBackground source={{uri: props.article.urlToImage ? props.article.urlToImage : 'https://i.pinimg.com/originals/c9/22/68/c92268d92cf2dbf96e3195683d9e14fb.png'}} style={styles.bgImage}>
