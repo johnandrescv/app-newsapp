@@ -1,32 +1,35 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import * as Facebook from 'expo-facebook'; 
+import { View, Text, StyleSheet } from 'react-native';
+import FacebookButton from '../components/FacebookButton';
+import GoogleButton from '../components/GoogleButton';
 
-const fbid = '284026302953409';
 const ProfileScreen = props => {
-    
-    const loginFb = async() => {
-        await Facebook.initializeAsync(fbid, 'NewsApp');
-        const {type, token} = await Facebook.logInWithReadPermissionsAsync(fbid, {permissions: ['public_profile']});
-        if(type === 'success') {
-            const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type(large)`);
-            const userinfo = await response.json();
-            console.log(userinfo);
-        } else {
-            console.log('Error');
-        }
-    };
-
     return (
-        <View>
-            <Text>Profile Screen</Text>
-            <TouchableOpacity onPress={loginFb}>
-                <View>
-                    <Text>Login with Facebook</Text>
-                </View>
-            </TouchableOpacity>
+        <View style={styles.container}>
+            <Text style={styles.label}>Sign In Now!</Text>
+            <FacebookButton style={styles.btnLogin} />
+            <GoogleButton style={styles.btnLogin} />
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignContent: 'center',
+        justifyContent: 'center'
+    },
+    label:{
+        textAlign: 'center',
+        fontFamily: 'open-sans',
+        fontSize: 16,
+    },
+    btnLogin: {
+        marginVertical: 5,
+        alignContent: 'center',
+        justifyContent: 'center',
+        marginHorizontal: '10%'
+    }
+});
 
 export default ProfileScreen;
