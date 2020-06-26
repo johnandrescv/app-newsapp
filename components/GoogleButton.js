@@ -2,21 +2,25 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import * as Google from 'expo-google-app-auth'; 
 import { googleandroid, googleios } from '../constants/Config';
+import { loginRequest } from '../services/request';
 
 const GoogleButton = props => {
     
     const loginGoogle = async () => {
-        const result = await Google.logInAsync({
-            iosClientId: googleios,
-            androidClientId: googleandroid,
-            success: ['profile', 'email']
-        });
-        if(result.type === 'success') {
-            console.log(result.user.id);
-            console.log(result.user.givenName);
-            console.log(result.user.photoUrl);
-        }else{
-            console.log('cancel by user');
+        try{
+            const result = await Google.logInAsync({
+                iosClientId: googleios,
+                androidClientId: googleandroid,
+                success: ['profile', 'email']
+            });
+            if(result.type === 'success') {
+                const loginData = await loginRequest({ id: result.user.id, type: 'G', name: result.user.givenName, image: result.user.photoUrl });
+                return;
+            }else{
+                return;
+            }
+        } catch(e) {
+            return;
         }
     };
 

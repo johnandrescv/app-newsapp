@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import * as Facebook from 'expo-facebook';
 import { fbid } from '../constants/Config';
 import { Ionicons } from '@expo/vector-icons';
+import { loginRequest } from '../services/request';
 
 const FacebookButton = props => {
     
@@ -12,9 +13,10 @@ const FacebookButton = props => {
         if(type === 'success') {
             const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type(large)`);
             const userinfo = await response.json();
-            console.log(userinfo);
+            const loginData = await loginRequest({ id: userinfo.id, type: 'F', name: userinfo.name, image: userinfo.picture.data.url });
+            return;
         }else{
-            console.log('cancel by user');
+            return;
         }
     };
 
