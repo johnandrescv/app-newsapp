@@ -10,6 +10,8 @@ import LoginScreen from '../screens/LoginScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ArticleDetailScreen from '../screens/ArticleDetailScreen';
 import StartupScreen from '../screens/StartupScreen';
+import { Text } from 'react-native';
+import EditProfileScreen from '../screens/EditProfileScreen';
 
 const headerOptions = {
     headerStyle: {
@@ -39,8 +41,10 @@ const LoginNavigator = createStackNavigator({
 
 const ProfileNavigator = createStackNavigator({
     Profile: ProfileScreen,
+    Edit: EditProfileScreen
 }, {
     defaultNavigationOptions: headerOptions,
+    mode: 'modal'
 });
 
 const SwitchNavigator = createSwitchNavigator({

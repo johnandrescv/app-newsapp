@@ -17,9 +17,6 @@ const ArticleDetailScreen = props => {
         reqBody.append('lang', confLang);
         const response = await fetch('https://jac-translate-api.herokuapp.com/api/v1/translate', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
             body: reqBody
         });
         const translateData = await response.json();

@@ -11,7 +11,6 @@ const StartupScreen = props => {
     const tryLogin = async () => {
       const userData = await AsyncStorage.getItem('user');
       if (!userData) {
-        console.log(userData);
         props.navigation.navigate('Login');
         return;
       }

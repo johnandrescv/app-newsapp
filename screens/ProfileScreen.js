@@ -5,6 +5,8 @@ import MainButton from '../components/MainButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeUserData } from '../services/request';
 import * as loginActions from '../store/actions/user';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import CustomHeaderButton from '../components/CustomHeaderButton';
 
 const ProfileScreen = props => {
     const user = useSelector(state => state.user.user);
@@ -28,6 +30,15 @@ const ProfileScreen = props => {
         </View>
     );
 };
+
+ProfileScreen.navigationOptions = (navOptions) => {
+    return {
+      headerTitle: 'My Profile',
+      headerRight: () => {
+        return <HeaderButtons HeaderButtonComponent={CustomHeaderButton}><Item title='Edit' iconName={Platform.OS === 'android' ? 'md-create' : 'ios-create'} onPress={() => { navOptions.navigation.navigate('Edit'); }} /></HeaderButtons>
+      },
+    }
+  };
 
 const styles = StyleSheet.create({
     screen: {
