@@ -7,6 +7,7 @@ import { AppLoading } from 'expo';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import newsReducer from './store/reducers/news';
+import userReducer from './store/reducers/user';
 import ReduxThunk from 'redux-thunk';
 
 enableScreens();
@@ -20,6 +21,7 @@ const fetchFonts = () => {
 
 const rootReducer = combineReducers({
   news: newsReducer,
+  user: userReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

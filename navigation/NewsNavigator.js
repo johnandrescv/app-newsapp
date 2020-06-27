@@ -1,13 +1,15 @@
 import React from 'react';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import NewsScreen from '../screens/NewsScreen';
 import CustomColors from '../constants/CustomColors';
+import LoginScreen from '../screens/LoginScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ArticleDetailScreen from '../screens/ArticleDetailScreen';
+import StartupScreen from '../screens/StartupScreen';
 
 const headerOptions = {
     headerStyle: {
@@ -29,10 +31,22 @@ const NewsNavigator = createStackNavigator({
     defaultNavigationOptions: headerOptions
 });
 
+const LoginNavigator = createStackNavigator({
+    Login: LoginScreen,
+}, {
+    defaultNavigationOptions: headerOptions,
+});
+
 const ProfileNavigator = createStackNavigator({
     Profile: ProfileScreen,
 }, {
-    defaultNavigationOptions: headerOptions
+    defaultNavigationOptions: headerOptions,
+});
+
+const SwitchNavigator = createSwitchNavigator({
+    Startup: StartupScreen,
+    Login: LoginNavigator,
+    Profile: ProfileNavigator,
 });
 
 const tabConfig = {
@@ -41,7 +55,7 @@ const tabConfig = {
         tabBarColor: CustomColors.primary,
         tabBarLabel:  Platform.OS === 'android' ? <Text style={{fontFamily: 'open-sans-bold'}}>News</Text> : 'News',
     }},
-    Profile: {screen: ProfileNavigator, navigationOptions: {
+    Profile: {screen: SwitchNavigator, navigationOptions: {
         tabBarIcon: (tabInfo) => <Ionicons name='md-person' size={25} color={tabInfo.tintColor} />,
         tabBarColor: CustomColors.secondary,
         tabBarLabel:  Platform.OS === 'android' ? <Text style={{fontFamily: 'open-sans-bold'}}>Profile</Text> : 'Profile',

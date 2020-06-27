@@ -1,15 +1,11 @@
-import { GET_NEWS, LOGIN_DATA } from "../actions/news";
+import { LOGIN_DATA } from "../actions/user";
 
 const initialState = {
-    articles: [],
+    user: {}
 };
 
 export default (state = initialState, action) => {
     switch (action.type){
-        case GET_NEWS:
-            return {
-                articles: action.news
-            }
         case LOGIN_DATA:
             return {
                 user: action.user

@@ -1,35 +1,65 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import FacebookButton from '../components/FacebookButton';
-import GoogleButton from '../components/GoogleButton';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import CustomColors from '../constants/CustomColors';
+import MainButton from '../components/MainButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUserData } from '../services/request';
+import * as loginActions from '../store/actions/user';
 
 const ProfileScreen = props => {
+    const user = useSelector(state => state.user.user);
+    const dispatch = useDispatch();
+
+    const logOutHandler = () => {
+        removeUserData();
+        dispatch(loginActions.saveUser({}));
+        props.navigation.navigate('Login');
+    };
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.label}>Sign In Now!</Text>
-            <FacebookButton style={styles.btnLogin} />
-            <GoogleButton style={styles.btnLogin} />
+        <View style={styles.screen}>
+            <View style={styles.imageContainer}>
+                <Image fadeDuration={300} style={styles.image} resizeMode="cover" source={{uri: user.image}} />
+            </View>
+            <View style={styles.resultContainer}>
+                <Text style={styles.secondary}>Welcome, <Text style={styles.highlight}>{user.name}</Text></Text>
+            </View>
+            <MainButton btnText="Sign out" onClick={logOutHandler} />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
+    screen: {
         flex: 1,
-        alignContent: 'center',
-        justifyContent: 'center'
-    },
-    label:{
-        textAlign: 'center',
-        fontFamily: 'open-sans',
-        fontSize: 16,
-    },
-    btnLogin: {
-        marginVertical: 5,
-        alignContent: 'center',
+        alignItems: 'center',
         justifyContent: 'center',
-        marginHorizontal: '10%'
-    }
+    },
+    resultContainer: {
+        marginHorizontal: 30,
+        marginVertical: 10
+    },
+    imageContainer: {
+        width: 200,
+        height: 200,
+        borderWidth: 2,
+        borderRadius: 200,
+        borderColor: 'black',
+        overflow: 'hidden',
+        marginVertical: 10
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+    },
+    highlight: {
+        color: CustomColors.primary,
+        fontFamily: 'open-sans-bold'
+    },
+    secondary: {
+        fontFamily: 'open-sans',
+        color: '#888'
+    },
 });
 
 export default ProfileScreen;

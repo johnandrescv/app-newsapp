@@ -3,9 +3,12 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import * as Google from 'expo-google-app-auth'; 
 import { googleandroid, googleios } from '../constants/Config';
 import { loginRequest } from '../services/request';
+import { useDispatch } from 'react-redux';
+import * as loginActions from '../store/actions/user';
 
 const GoogleButton = props => {
-    
+    const dispatch = useDispatch();
+
     const loginGoogle = async () => {
         try{
             const result = await Google.logInAsync({
@@ -15,7 +18,10 @@ const GoogleButton = props => {
             });
             if(result.type === 'success') {
                 const loginData = await loginRequest({ id: result.user.id, type: 'G', name: result.user.givenName, image: result.user.photoUrl });
-                return;
+                if(loginData){
+                    dispatch(loginActions.saveUser(loginData));
+                    props.navigation.navigate('Profile');
+                }
             }else{
                 return;
             }
