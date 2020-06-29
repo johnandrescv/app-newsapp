@@ -1,11 +1,10 @@
 {
   "expo": {
-    "name": "newsapp",
+    "name": "Newsapp",
     "slug": "newsapp",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +21,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.johnandrescv.newsapp",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.johnandrescv.newsapp",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA",
+        "MANAGE_DOCUMENTS",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "config": {
+        "googleSignIn": {
+          "apiKey": "960125003370-ir7l6e1roh7f05c1hu6kn9kpusa3m0k9.apps.googleusercontent.com",
+          "certificateHash": "33:AF:30:44:28:18:C0:78:05:4D:18:91:02:06:A7:8C:BF:6B:7A:46"
+        }
+      }
     }
   }
 }
